@@ -2,19 +2,19 @@ import { player } from "./player.js";
 import { gameboard } from "./gameboard.js";
 
 /** Create a new game */
-export function game(userModule=player, boardModule=gameboard) {
+export function game(userModule = player, boardModule = gameboard) {
   // setting up initial setup
-  const createGameBoard = function () {
-    const activeboard = boardModule();
-    const myBoard = activeboard.board;
+  const activeboard = boardModule();
+
+  const createGameBoard = function (createBoard) {
+    const myBoard = createBoard();
     return myBoard;
   };
 
   /** set playerX as active and create the gameboard */
-  function start(players) {
-    let { user1, _ } = players;
+  function start(user1) {
     user1.changeActiveStatus();
-    const board = createGameBoard();
+    const board = createGameBoard(activeboard.createBoard);
     return board;
   }
 
@@ -27,28 +27,30 @@ export function game(userModule=player, boardModule=gameboard) {
     return { user1, user2 };
   };
 
-  function onEachRound(players) {
-    let { user1, user2 } = players;
+  function onEachRound(user1, user2) {
     changeActiveUser(user1, user2);
-    
+  }
+
+  const marking = function(outIndex, inIndex, mark, board) {
+    activeboard.updateBoard(outIndex, inIndex, mark, board);
   }
 
   /** Change Active Player */
   const changeActiveUser = function (user1, user2) {
-    if (user1.getActiveStatus) {
-      user1.changeActiveStatus(); // turns user1 inactive
-      user2.changeActiveStatus(); // turns user2 active
-    } else if (user2.getActiveStatus) {
-      user1.changeActiveStatus(); // turns user1 active
-      user2.changeActiveStatus(); // turns user2 inactive
+    const [setUserOneStatus, getUserOneStatus] = user1;
+    const [setUserTwoStatus, getUserTwoStatus] = user2;
+    if ((getUserOneStatus())) {
+      setUserOneStatus(); // turns user1 inactive
+      setUserTwoStatus(); // turns user2 active
+    } else if ((getUserTwoStatus())) {
+      setUserOneStatus(); // turns user1 active
+      setUserTwoStatus(); // turns user2 inactive
     }
   };
 
-  function roundWinner() {
-    
-  }
+  function roundWinner() {}
 
   function winLose() {}
 
-  return { start, createUser };
+  return { start, createUser, onEachRound, marking };
 }

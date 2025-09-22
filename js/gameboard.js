@@ -10,6 +10,12 @@ export function gameboard() {
   };
 
   // module for player1 input and player2 input
+  const updateBoard = function (outIndex, inIndex, mark, board) {
+    let box = board[outIndex][inIndex];
+    if (box === undefined) {
+      board[outIndex][inIndex] = mark;
+    }
+  };
 
-  return { createBoard };
+  return { createBoard, updateBoard };
 }
