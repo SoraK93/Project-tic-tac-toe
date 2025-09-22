@@ -1,0 +1,117 @@
+/* Default Section */
+:root {
+  --active-player-bg: rgb(0, 255, 255);
+  --box-shadow-bg: black;
+  --text-shadow-bg: black;
+  --board-cell-bg: azure;
+  --board-cell-hover-bg: rgb(56, 136, 255);
+  --board-cell-border-color: black;
+  --board-cell-active-bg: rgb(97, 231, 255);
+  --header-bg: rgb(4, 180, 211);
+  --header-footer-text-color: white;
+  --footer-gradient1-bg: rgb(4, 180, 211);
+  --footer-gradient2-bg: rgba(41, 38, 233, 0.856);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ticTacToe {
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr;
+}
+
+/* Utility Section */
+/* used by script to show active player */
+.active {
+  background-color: var(--active-player-bg);
+  box-shadow: 1px 1px 8px 1px var(--box-shadow-bg);
+  border-radius: 20px;
+}
+/* used by script to show player choosen cell */
+.boardCell.cellSelect {
+  background-color: var(--board-cell-active-bg);
+}
+
+/* Header Section */
+header {
+  background-color: var(--header-bg);
+  color: var(--header-footer-text-color);
+  box-shadow: 0 2px 4px 1px var(--box-shadow-bg);
+}
+header h1 {
+  text-align: center;
+  font-size: 4em;
+}
+
+/* Players Section */
+.player1,
+.player2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 20px;
+}
+.player1 > div,
+.player2 > div {
+  width: 100%;
+  text-align: center;
+}
+.player1 > div:first-child,
+.player2 > div:first-child {
+  font-size: 3rem;
+  text-decoration: underline;
+}
+
+.player1 {
+  align-items: flex-end;
+}
+
+.player2 {
+  align-items: flex-start;
+}
+
+/* Gameboard Section */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0;
+  margin: 20px;
+  justify-content: center;
+  border: 2px solid var(--board-cell-border-color);
+}
+.boardCell {
+  background-color: var(--board-cell-bg);
+  height: 200px;
+  box-shadow: -2px -2px 5px 1px inset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+}
+.boardCell:hover {
+  background-color: var(--board-cell-hover-bg);
+}
+.boardCell:active {
+  box-shadow: 3px 3px 6px 0px inset, 0 0 5px 1px inset;
+}
+
+/* Winner Section */
+.result {
+  background-image: linear-gradient(
+    to left,
+    var(--footer-gradient1-bg),
+    var(--footer-gradient2-bg)
+  );
+  padding: 10px;
+  text-align: center;
+  font-size: 3em;
+  color: var(--header-footer-text-color);
+  box-shadow: 0 -2px 4px 1px var(--box-shadow-bg);
+  text-shadow: 1px 1px 3px var(--text-shadow-bg);
+}
