@@ -37,13 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
       [user2.changeActiveStatus, user2.getActiveStatus]
     );
 
-    addPlayerMarkToDOM(boardBox, currentUser);
+    updateCurrentPlayerDOM(boardBox, currentUser.mark);
   });
 });
+//cellSelect
+function updateCurrentPlayerDOM(parentDOM, currentPlayerMark) {
+  parentDOM.classList.add("cellSelect");
 
-function addPlayerMarkToDOM(parentDOM, currentPlayer) {
   let paragraphElement = document.createElement("p");
-  paragraphElement.innerText = currentPlayer.mark
+  paragraphElement.innerText = currentPlayerMark
     ? playerOneMark
     : playerTwoMark;
   parentDOM.appendChild(paragraphElement);
