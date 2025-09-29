@@ -9,7 +9,12 @@ export function gameboard() {
     return board;
   };
 
-  // module for player1 input and player2 input
+  /** module for player1 input and player2 input 
+   *  @param {Number} outIndex
+   *  @param {Number} inIndex
+   *  @param {Number} mark
+   *  @param {Array} board
+  */
   const updateBoard = function (outIndex, inIndex, mark, board) {
     let box = board[outIndex][inIndex];
     if (box === undefined) {

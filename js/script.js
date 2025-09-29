@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   DOMCache.board.addEventListener("click", (e) => playerTurn(e, DOMCache));
 });
 
+
 function playerTurn(e, DOMCache) {
   e.stopPropagation();
 
@@ -46,7 +47,11 @@ function playerTurn(e, DOMCache) {
   console.log(gameboard[2][2]);
 }
 
-//cellSelect
+/** This function takes care of all the player related UI feedback
+ *  @param {Document} parentDOM
+ *  @param {Number} currentPlayerMark
+ *  @param {Array} playerScoreBoard
+ */
 function updateCurrentPlayerDOM(parentDOM, currentPlayerMark, playerScoreBoard) {
   let cellSelect = (currentPlayerMark === 1) ? "cellSelectP1" : "cellSelectP2";
   parentDOM.classList.add(cellSelect);
