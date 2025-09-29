@@ -11,9 +11,14 @@ export function game(userModule = player, boardModule = gameboard) {
     return myBoard;
   };
 
-  /** set playerX as active and create the gameboard */
-  function start(user1) {
-    user1.changeActiveStatus();
+  /** set playerX as active and create the gameboard
+   *  @param {userModule} users - {users object}
+   */
+  function start(users) {
+    const { user1, user2 } = users;
+    if (!user1.getActiveStatus()) user1.changeActiveStatus();
+    if (user2.getActiveStatus()) user2.changeActiveStatus();
+
     const board = createGameBoard(activeboard.createBoard);
     return board;
   }
@@ -59,9 +64,40 @@ export function game(userModule = player, boardModule = gameboard) {
     }
   };
 
-  function roundWinner() {}
+  /** Calculate players score on each turn and see who is the winner
+   *  @param {Array} boardArray
+   *  @param {Array} updateUserScore - increment current player score
+   */
+  function roundWinner(
+    boardArray,
+    updateUserScore,
+    traverseFunc = activeboard.traverseBoardArray
+  ) {
+    // Vertical Check
+    let vTotal = traverseFunc(boardArray, "vertical");
+    if (vTotal !== undefined && (vTotal === 3 || vTotal === 0)) {
+      updateUserScore();
+      return vTotal;
+    }
 
-  function winLose() {}
+    // Horizontal Check
+    let hTotal = traverseFunc(boardArray, "horizontal");
+    if (hTotal !== undefined && (hTotal === 3 || hTotal === 0)) {
+      updateUserScore();
+      return hTotal;
+    }
 
-  return { start, createUser, onEachRound, marking };
+    // Diagonal Check
+    let dTotal = traverseFunc(boardArray, "diagonal");
+    if (dTotal !== undefined && (dTotal === 3 || dTotal === 0)) {
+      updateUserScore();
+      return dTotal;
+    }
+  }
+
+  function winLose(winningUser) {
+    return winningUser;
+  }
+
+  return { start, createUser, onEachRound, marking, roundWinner };
 }

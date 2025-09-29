@@ -4,16 +4,14 @@ export function player(name) {
   let activeStatus = false;
 
   /** Update player win score */
-  function point(win = false) {
-    if (win) {
-      score++;
-    }
-    return score;
+  function point() {
+    return ++score;
   }
 
   /** Increment winner score */
-  function winRound(status=true) {
-    return point(status);
+  function winRound() {
+    score = point();
+    return score;
   }
 
   /** Get player score */
@@ -35,11 +33,7 @@ export function player(name) {
   }
 
   function winner() {
-    return score === 3;
-  }
-
-  function getWinStatus() {
-    return winner();
+    return name;
   }
 
   return {
@@ -48,6 +42,6 @@ export function player(name) {
     winRound,
     getActiveStatus,
     changeActiveStatus,
-    getWinStatus,
+    winner
   };
 }

@@ -118,10 +118,12 @@ header h1 {
     var(--footer-gradient1-bg),
     var(--footer-gradient2-bg)
   );
-  padding: 10px;
   text-align: center;
   font-size: 3em;
   color: var(--header-footer-text-color);
+}
+.resultActive {
+  padding: 10px;
   box-shadow: 0 -2px 4px 1px var(--box-shadow-bg);
   text-shadow: 1px 1px 3px var(--text-shadow-bg);
 }
