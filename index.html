@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game Start</title>
-    <link rel="stylesheet" href="./css/index.css">
-</head>
-<body>
-    <form action="">
-        <fieldset>
-            <legend>Enter Player Names below</legend>
-            <label>Player One:</label>
-            <input type="text">
-            <label>Player Two:</label>
-            <input type="text">
-            <button>Start Game</button>
-        </fieldset>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to Tic-Tac-Toe Game</h1>
+    </header>
+    <form>
+      <fieldset>
+        <legend>Enter Player Names below</legend>
+        <div class="namePlayer1">
+          <label for="namePlayer1">Player One:</label>
+          <input type="text" id="namePlayer1" required />
+        </div>
+
+        <div class="namePlayer2">
+          <label for="namePlayer2">Player Two:</label>
+          <input type="text" id="namePlayer2" required />
+        </div>
+
+        <div class="button">
+          <button>Start Game</button>
+        </div>
+      </fieldset>
     </form>
 
-    <script src="./js/index.js"></script>
-</body>
+    <script src="./js/index.js" type="module"></script>
+  </body>
 </html>

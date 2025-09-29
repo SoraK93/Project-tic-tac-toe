@@ -1,0 +1,140 @@
+:root {
+  --active-player1-bg: rgb(0, 255, 255);
+  --active-player2-bg: rgb(0, 255, 170);
+  --header-bg: rgb(4, 180, 211);
+  --header-footer-text-color: white;
+  --box-shadow-bg: black;
+  --text-shadow-bg: black;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 15rem;
+  background-color: var(--header-bg);
+  color: var(--header-footer-text-color);
+  box-shadow: 0 2px 4px 1px var(--box-shadow-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header h1 {
+  font-size: 4em;
+  text-shadow: 1px 1px 3px var(--text-shadow-bg);
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+
+fieldset {
+  border: none;
+}
+
+legend {
+  font-size: 2.8rem;
+  font-weight: bold;
+  text-decoration: underline;
+  background-image: linear-gradient(
+    120deg,
+    var(--active-player1-bg) 40%,
+    var(--active-player2-bg) 60%
+  );
+  background-clip: text;
+  color: transparent;
+  text-shadow: 1px 1px 3px var(--text-shadow-bg);
+}
+
+div {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+label {
+  margin: 0 auto;
+}
+
+input {
+  font-size: 1.4rem;
+  margin-left: 1em;
+  height: 3rem;
+  width: 50%;
+  margin: 0 auto;
+  border: none;
+  border-bottom: 1px dashed rgb(189, 189, 189);
+}
+
+#namePlayer1:focus {
+  font-size: 1.4rem;
+  background-color: var(--active-player1-bg);
+  outline: none;
+  padding-left: 10px;
+}
+
+#namePlayer2:focus {
+  font-size: 1.4rem;
+  background-color: var(--active-player2-bg);
+  outline: none;
+  padding-left: 10px;
+}
+
+.namePlayer1 label {
+  color: var(--active-player1-bg);
+  font-weight: bold;
+  font-size: 1.3em;
+  text-shadow: 1px 1px 3px var(--text-shadow-bg);
+}
+
+.namePlayer2 label {
+  color: var(--active-player2-bg);
+  font-weight: bold;
+  font-size: 1.3em;
+  text-shadow: 1px 1px 3px var(--text-shadow-bg);
+}
+
+.button {
+  width: 100%;
+}
+button {
+  margin: 0 auto;
+  padding: 1rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 10%;
+  background-image: linear-gradient(
+    120deg,
+    var(--active-player1-bg) 40%,
+    var(--active-player2-bg) 60%
+  );
+  cursor: pointer;
+  transform: scale(1);
+}
+
+button:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in;
+}
+
+button:active {
+  transform: scale(1);
+  transition: transform 0.2s ease-out;
+}

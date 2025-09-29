@@ -6,8 +6,10 @@ let playerTwoMark = "O";
 let tictactoe = game();
 
 // create two users
-
-let users = tictactoe.createUser("Hola", "Mola");
+const playerNames1 = localStorage.getItem("namePlayer1");
+const playerNames2 = localStorage.getItem("namePlayer2");
+console.log(playerNames1, playerNames2)
+let users = tictactoe.createUser(playerNames1, playerNames2);
 const { user1, user2 } = users;
 
 // create a new gameboard at the start
@@ -72,7 +74,9 @@ function playerTurn(e) {
   // Check who is the winner in 3 rounds
   let checkWinner = tictactoe.winStatus(currentUser.getScore());
   if (checkWinner === "Win") {
-    isWinner(winnerName)
+    isWinner(winnerName);
+    localStorage.removeItem("namePlayer1");
+    localStorage.removeItem("namePlayer2");
     return;
   }
 
@@ -187,8 +191,8 @@ function isWinner(winner) {
   resetGame.classList.add("resetGameBtn");
 
   resetGame.addEventListener("click", () => {
-    location.href = "./index.html"
-  })
+    location.href = "./index.html";
+  });
 
   // remove all user interaction from the gameboard
   DOMCache.board.removeEventListener("click", playerTurn);

@@ -48,13 +48,19 @@
 
 /* Header Section */
 header {
+  height: 6em;
   background-color: var(--header-bg);
   color: var(--header-footer-text-color);
   box-shadow: 0 2px 4px 1px var(--box-shadow-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }
 header h1 {
   text-align: center;
   font-size: 4em;
+  text-shadow: 2px 2px 3px var(--text-shadow-bg);
 }
 
 /* Players Section */
@@ -106,6 +112,7 @@ header h1 {
 }
 .boardCell:hover {
   background-color: var(--board-cell-hover-bg);
+  cursor: pointer;
 }
 .boardCell:active {
   box-shadow: 3px 3px 6px 0px inset, 0 0 5px 1px inset;
@@ -126,4 +133,33 @@ header h1 {
   padding: 10px;
   box-shadow: 0 -2px 4px 1px var(--box-shadow-bg);
   text-shadow: 1px 1px 3px var(--text-shadow-bg);
+}
+
+.resultActive {
+  width: 100%;
+}
+button {
+  margin: 0 auto;
+  margin-top: 15px;
+  padding: 1rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 10%;
+  background-image: linear-gradient(
+    120deg,
+    var(--active-player1-bg) 40%,
+    var(--active-player2-bg) 60%
+  );
+  cursor: pointer;
+  transform: scale(1);
+}
+
+button:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in;
+}
+
+button:active {
+  transform: scale(1);
+  transition: transform 0.2s ease-out;
 }
