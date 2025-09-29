@@ -6,8 +6,7 @@ let playerTwoMark = "O";
 let tictactoe = game();
 
 // create two users
-// const playerX = window.prompt("Enter Player name:\n(Player will use X)");
-// const playerY = window.prompt("Enter Player name:\n(Player will use Y)");
+
 let users = tictactoe.createUser("Hola", "Mola");
 const { user1, user2 } = users;
 
@@ -60,15 +59,22 @@ function playerTurn(e) {
 
   updateCurrentPlayerDOM(boardBox, currentUser.mark);
 
-  // Checks if there is a winner
-  let roundScore = tictactoe.roundWinner(gameboard, currentUser.winRound);
-  let winnerName = checkRoundWinner(currentUser, roundScore);
-
   let playerActiveScoreBoard = [
     DOMCache.playerOneScoreBoard,
     DOMCache.playerTwoScoreBoard,
   ];
   updateActivePlayerDOM(playerActiveScoreBoard);
+
+  // Checks if there is a winner in the round
+  let roundScore = tictactoe.roundWinner(gameboard, currentUser.winRound);
+  let winnerName = checkRoundWinner(currentUser, roundScore);
+
+  // Check who is the winner in 3 rounds
+  let checkWinner = tictactoe.winStatus(currentUser.getScore());
+  if (checkWinner === "Win") {
+    isWinner(winnerName)
+    return;
+  }
 
   // Resets the board after a round winner
   if (winnerName) {
@@ -165,4 +171,25 @@ function countDown(value) {
       pElement.textContent = `Next round will start in ${i}`;
     }, (value - i) * 1000);
   }
+}
+
+function isWinner(winner) {
+  // Announce the Winner
+  let h3Element = document.createElement("h3");
+  h3Element.textContent = `Winner of the game is ${winner}!`;
+  DOMCache.gameResult.appendChild(h3Element);
+  DOMCache.gameResult.classList.add("resultActive");
+
+  // Creates a button to reset the game
+  let resetGame = document.createElement("button");
+  resetGame.textContent = "Reset Game";
+  DOMCache.gameResult.appendChild(resetGame);
+  resetGame.classList.add("resetGameBtn");
+
+  resetGame.addEventListener("click", () => {
+    location.href = "./index.html"
+  })
+
+  // remove all user interaction from the gameboard
+  DOMCache.board.removeEventListener("click", playerTurn);
 }

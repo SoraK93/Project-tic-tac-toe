@@ -4,6 +4,7 @@ import { gameboard } from "./gameboard.js";
 /** Start a new game */
 export function game(userModule = player, boardModule = gameboard) {
   // setting up initial setup
+  const totalNumberOfGame = 3;
   const activeboard = boardModule();
 
   const createGameBoard = function (createBoard) {
@@ -71,7 +72,8 @@ export function game(userModule = player, boardModule = gameboard) {
   function roundWinner(
     boardArray,
     updateUserScore,
-    traverseFunc = activeboard.traverseBoardArray
+    traverseFunc = activeboard.traverseBoardArray,
+    boardFull = activeboard.isBoardFull
   ) {
     // Vertical Check
     let vTotal = traverseFunc(boardArray, "vertical");
@@ -93,14 +95,13 @@ export function game(userModule = player, boardModule = gameboard) {
       updateUserScore();
       return dTotal;
     }
+
+    if (boardFull(boardArray)) return "Draw";
   }
 
-  function winLose(userScore, board) {
-    if (userScore === 3) return "Win"
-
-    let checkDraw = activeboard.isBoardFull(board);
-    if (checkDraw) return "Draw";
+  function winStatus(userScore) {
+    if (userScore === totalNumberOfGame) return "Win";
   }
 
-  return { start, createUser, onEachRound, marking, roundWinner };
+  return { start, createUser, onEachRound, marking, roundWinner, winStatus };
 }
