@@ -95,8 +95,11 @@ export function game(userModule = player, boardModule = gameboard) {
     }
   }
 
-  function winLose(winningUser) {
-    return winningUser;
+  function winLose(userScore, board) {
+    if (userScore === 3) return "Win"
+
+    let checkDraw = activeboard.isBoardFull(board);
+    if (checkDraw) return "Draw";
   }
 
   return { start, createUser, onEachRound, marking, roundWinner };

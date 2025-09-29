@@ -59,5 +59,16 @@ export function gameboard() {
     return total;
   }
 
-  return { createBoard, updateBoard, traverseBoardArray };
+  function isBoardFull(board) {
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < i.length; j++) {
+        if (board[i][j] === undefined) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  return { createBoard, updateBoard, traverseBoardArray, isBoardFull };
 }

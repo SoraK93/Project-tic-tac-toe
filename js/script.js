@@ -31,8 +31,11 @@ const DOMCache = (function () {
   };
 })();
 
+// Updates user name in the DOM
 document.querySelector(".player1>div p").innerText = user1.name;
 document.querySelector(".player2>div p").innerText = user2.name;
+
+// Add a event listener to the board
 DOMCache.board.addEventListener("click", playerTurn);
 
 function playerTurn(e) {
@@ -48,41 +51,37 @@ function playerTurn(e) {
 
   // Get current user and update marking, active user, and user score
   const currentUser = user1.getActiveStatus() ? user1 : user2;
+
   // Update gameboard
   tictactoe.marking(outIndex, inIndex, currentUser.mark, gameboard);
-  // Checks if there is a winner
-  let roundScore = tictactoe.roundWinner(gameboard, currentUser.winRound);
-  let winnerName = checkRoundWinner(currentUser, roundScore);
+
   // if no winner found change active user
   changeCurrentPlayer();
 
   updateCurrentPlayerDOM(boardBox, currentUser.mark);
 
-  if (winnerName) {
-    DOMCache.board.removeEventListener("click", playerTurn);
-    updateResultDOM(DOMCache.gameResult, winnerName);
-    updateScoreDOM(currentUser.getScore(), currentUser.mark, DOMCache);
-
-    setTimeout(() => countDown(DOMCache, value), 1000);
-    setTimeout(() => 2, 2000);
-    setTimeout(() => 1, 3000);
-    setTimeout(() => resetGame(DOMCache), 4000);
-    return;
-  }
+  // Checks if there is a winner
+  let roundScore = tictactoe.roundWinner(gameboard, currentUser.winRound);
+  let winnerName = checkRoundWinner(currentUser, roundScore);
 
   let playerActiveScoreBoard = [
     DOMCache.playerOneScoreBoard,
     DOMCache.playerTwoScoreBoard,
   ];
   updateActivePlayerDOM(playerActiveScoreBoard);
+
+  // Resets the board after a round winner
+  if (winnerName) {
+    updateRoundWinnerDOM(winnerName, currentUser);
+    return;
+  }
 }
 
 /** This function takes care of all the player related UI feedback
  *  @param {Document} boxDOM
  *  @param {Number} currentPlayerMark
- *  @param {Array} playerScoreBoard
  */
-function updateCurrentPlayerDOM(boxDOM, currentPlayerMark, playerScoreBoard) {
+function updateCurrentPlayerDOM(boxDOM, currentPlayerMark) {
   let cellSelect = currentPlayerMark === 1 ? "cellSelectP1" : "cellSelectP2";
   boxDOM.classList.add(cellSelect);
 
@@ -98,13 +97,11 @@ function updateActivePlayerDOM(scoreBoard) {
   scoreBoard[1].classList.toggle("activeP2"); // player2
 }
 
-function updateScoreDOM(score, mark, dom) {
-  console.log(dom);
+function updateScoreDOM(score, mark) {
   if (mark === 1) {
-    dom.playerOneScoreValue.innerText = `Score: ${score}`;
-    console.log(dom.playerOneScoreValue);
+    DOMCache.playerOneScoreValue.innerText = `Score: ${score}`;
   } else {
-    dom.playerTwoScoreValue.innerText = `Score: ${score}`;
+    DOMCache.playerTwoScoreValue.innerText = `Score: ${score}`;
   }
 }
 
@@ -113,6 +110,15 @@ function updateResultDOM(dom, winner) {
   h3Element.textContent = `Winner of the round is ${winner}!`;
   dom.appendChild(h3Element);
   dom.classList.add("resultActive");
+}
+
+function updateRoundWinnerDOM(winner, user) {
+  DOMCache.board.removeEventListener("click", playerTurn);
+  updateResultDOM(DOMCache.gameResult, winner);
+  updateScoreDOM(user.getScore(), user.mark);
+
+  countDown(3);
+  setTimeout(() => resetGame(DOMCache), 3000);
 }
 
 function checkRoundWinner(currentUser, score) {
@@ -128,19 +134,35 @@ function changeCurrentPlayer() {
   );
 }
 
-function resetGame(DOM) {
+/** This function is used to reset all the UI elements and gameboard */
+function resetGame() {
+  // reset player active status
   gameboard = tictactoe.start(users);
+  if (!DOMCache.playerOneScoreBoard.classList.contains("activeP1"))
+    DOMCache.playerOneScoreBoard.classList.add("activeP1");
+  DOMCache.playerTwoScoreBoard.classList.remove("activeP2");
 
-  let boardCell = DOM.board.querySelectorAll(".boardCell");
+  // reset gameboard box styles
+  let boardCell = DOMCache.board.querySelectorAll(".boardCell");
   boardCell.forEach((element) => {
     element.classList.remove("cellSelectP1", "cellSelectP2");
     element.innerHTML = "";
   });
 
-  DOM.gameResult.innerHTML = "";
-  DOM.gameResult.classList.remove("resultActive");
+  // reset game result
+  DOMCache.gameResult.innerHTML = "";
+  DOMCache.gameResult.classList.remove("resultActive");
 
+  // player can interact with the board again
   DOMCache.board.addEventListener("click", playerTurn);
 }
 
-function countDown(DOM, value) {}
+function countDown(value) {
+  let pElement = document.createElement("p");
+  DOMCache.gameResult.appendChild(pElement);
+  for (let i = value; i > 0; i--) {
+    setTimeout(() => {
+      pElement.textContent = `Next round will start in ${i}`;
+    }, (value - i) * 1000);
+  }
+}
