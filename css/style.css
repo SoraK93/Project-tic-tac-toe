@@ -1,12 +1,14 @@
 /* Default Section */
 :root {
-  --active-player-bg: rgb(0, 255, 255);
+  --active-player1-bg: rgb(0, 255, 255);
+  --active-player2-bg: rgb(0, 255, 170);
   --box-shadow-bg: black;
   --text-shadow-bg: black;
   --board-cell-bg: azure;
   --board-cell-hover-bg: rgb(56, 136, 255);
   --board-cell-border-color: black;
-  --board-cell-active-bg: rgb(97, 231, 255);
+  --board-cell-active-p1-bg: rgb(0, 255, 255);
+  --board-cell-active-p2-bg: rgb(0, 255, 170);
   --header-bg: rgb(4, 180, 211);
   --header-footer-text-color: white;
   --footer-gradient1-bg: rgb(4, 180, 211);
@@ -26,14 +28,22 @@
 
 /* Utility Section */
 /* used by script to show active player */
-.active {
-  background-color: var(--active-player-bg);
+.activeP1 {
+  background-color: var(--active-player1-bg);
+  box-shadow: 1px 1px 8px 1px var(--box-shadow-bg);
+  border-radius: 20px;
+}
+.activeP2 {
+  background-color: var(--active-player2-bg);
   box-shadow: 1px 1px 8px 1px var(--box-shadow-bg);
   border-radius: 20px;
 }
 /* used by script to show player choosen cell */
-.boardCell.cellSelect {
-  background-color: var(--board-cell-active-bg);
+.boardCell.cellSelectP1 {
+  background-color: var(--board-cell-active-p1-bg);
+}
+.boardCell.cellSelectP2 {
+  background-color: var(--board-cell-active-p2-bg);
 }
 
 /* Header Section */
